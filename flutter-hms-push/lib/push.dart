@@ -17,14 +17,21 @@ Copyright (c) Huawei Technologies Co., Ltd. 2012-2020. All rights reserved.
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:huawei_push/callback.dart';
 
 import 'constants/method.dart' as Method;
 import 'constants/channel.dart' as Channel;
 import 'constants/code.dart';
 
 class Push {
-  static const MethodChannel mChannel =
-      const MethodChannel(Channel.METHOD_CHANNEL);
+  static MethodChannel mChannel = const MethodChannel(Channel.METHOD_CHANNEL)
+    ..setMethodCallHandler(_methodHandler);
+
+  static StreamController<ClickNotificationCallback>
+  _clickNotificationHandlerController = new StreamController.broadcast();
+
+  static Stream<ClickNotificationCallback> get clickNotificationHandler =>
+      _clickNotificationHandlerController.stream;
 
   static Future<String> turnOnPush() async {
     final String result = await mChannel.invokeMethod(Method.turnOnPush);
@@ -92,7 +99,7 @@ class Push {
     args.putIfAbsent("enabled", () => enabled);
 
     final String result =
-        await mChannel.invokeMethod(Method.setAutoInitEnabled, args);
+    await mChannel.invokeMethod(Method.setAutoInitEnabled, args);
     return Code[result];
   }
 
@@ -103,7 +110,7 @@ class Push {
 
   static Future<String> getAgConnectValues() async {
     final String result =
-        await mChannel.invokeMethod<String>(Method.getAgConnectValues);
+    await mChannel.invokeMethod<String>(Method.getAgConnectValues);
     return result;
   }
 
@@ -113,5 +120,27 @@ class Push {
 
     await mChannel.invokeMethod(Method.showToast, args);
     return null;
+  }
+
+  static Future<bool> registerClickNotification() async {
+    final bool result = await mChannel.invokeMethod(Method.registerClickEvent);
+    return result;
+  }
+
+  static Future<Null> unRegisterClickNotification() async {
+    await mChannel.invokeMethod(
+        Method.unRegisterClickEvent);
+    return null;
+  }
+
+  static Future _methodHandler(MethodCall methodCall) {
+    switch (methodCall.method) {
+      case Method.onClickNotification:
+        final request = ClickNotificationCallback.create(methodCall.arguments);
+        _clickNotificationHandlerController.add(request);
+        break;
+    }
+
+    return Future.value();
   }
 }

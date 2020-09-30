@@ -29,6 +29,7 @@ import io.flutter.plugin.common.EventChannel.EventSink;
 public class TokenStreamHandler implements StreamHandler {
 
     private Context context;
+    private BroadcastReceiver tokenEventBroadcastReceiver;
 
     public TokenStreamHandler(Context context) {
         this.context = context;
@@ -36,16 +37,21 @@ public class TokenStreamHandler implements StreamHandler {
 
     @Override
     public void onListen(Object arguments, EventSink events) {
-        BroadcastReceiver tokenEventBroadcastReceiver = createTokenEventBroadcastReceiver(events);
-        context.registerReceiver(
-                tokenEventBroadcastReceiver,
-                new IntentFilter(PushIntent.TOKEN_INTENT_ACTION.id())
-        );
+        if (tokenEventBroadcastReceiver == null) {
+            tokenEventBroadcastReceiver = createTokenEventBroadcastReceiver(events);
+            context.registerReceiver(
+                    tokenEventBroadcastReceiver,
+                    new IntentFilter(PushIntent.TOKEN_INTENT_ACTION.id())
+            );
+        }
     }
 
     @Override
     public void onCancel(Object arguments) {
-
+        if (tokenEventBroadcastReceiver != null) {
+            context.unregisterReceiver(tokenEventBroadcastReceiver);
+            tokenEventBroadcastReceiver = null;
+        }
     }
 
     private BroadcastReceiver createTokenEventBroadcastReceiver(final EventSink events) {

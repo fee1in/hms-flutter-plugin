@@ -18,6 +18,10 @@ package com.huawei.hms.flutter.push.constants;
 
 public enum Method {
 
+    registerClickEvent,
+    unRegisterClickEvent,
+    onClickNotification,
+
     turnOnPush,
     turnOffPush,
 

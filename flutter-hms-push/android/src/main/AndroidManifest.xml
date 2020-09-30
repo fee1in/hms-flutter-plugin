@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.huawei.hms.flutter.push">
+    package="com.huawei.hms.flutter.push">
 
     <application>
         <service
@@ -9,7 +9,16 @@
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
+        <activity
+            android:name=".ClickNotificationActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/HmsDisablePreviewTheme">
+            <intent-filter>
+                <action android:name="com.huawei.push.action.CLICK_NOTIFICATION" />
+                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

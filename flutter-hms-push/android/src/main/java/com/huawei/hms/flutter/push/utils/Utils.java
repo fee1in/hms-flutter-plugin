@@ -49,9 +49,12 @@ public class Utils {
     }
 
     public static void sendIntent(PushIntent action, PushIntent extraName, String result) {
-        Intent intent = new Intent();
-        intent.setAction(action.id());
-        intent.putExtra(extraName.id(), result);
-        PushPlugin.getContext().sendBroadcast(intent);
+        if(PushPlugin.getContext()!=null){
+            Intent intent = new Intent();
+            intent.setAction(action.id());
+            intent.putExtra(extraName.id(), result);
+            PushPlugin.getContext().sendBroadcast(intent);
+        }
+    
     }
 }

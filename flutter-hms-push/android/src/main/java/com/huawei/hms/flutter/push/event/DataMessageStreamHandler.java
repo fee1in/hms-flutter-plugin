@@ -29,6 +29,7 @@ import io.flutter.plugin.common.EventChannel.EventSink;
 public class DataMessageStreamHandler implements StreamHandler {
 
     private Context context;
+    private BroadcastReceiver dataMessageEventBroadcastReceiver;
 
     public DataMessageStreamHandler(Context context) {
         this.context = context;
@@ -36,16 +37,21 @@ public class DataMessageStreamHandler implements StreamHandler {
 
     @Override
     public void onListen(Object arguments, EventSink events) {
-        BroadcastReceiver dataMessageEventBroadcastReceiver = createDataMessageEventBroadcastReceiver(events);
-        context.registerReceiver(
-                dataMessageEventBroadcastReceiver,
-                new IntentFilter(PushIntent.DATA_MESSAGE_INTENT_ACTION.id())
-        );
+        if (dataMessageEventBroadcastReceiver == null) {
+            dataMessageEventBroadcastReceiver = createDataMessageEventBroadcastReceiver(events);
+            context.registerReceiver(
+                    dataMessageEventBroadcastReceiver,
+                    new IntentFilter(PushIntent.DATA_MESSAGE_INTENT_ACTION.id())
+            );
+        }
     }
 
     @Override
     public void onCancel(Object arguments) {
-
+        if (dataMessageEventBroadcastReceiver != null) {
+            context.unregisterReceiver(dataMessageEventBroadcastReceiver);
+            dataMessageEventBroadcastReceiver = null;
+        }
     }
 
     private BroadcastReceiver createDataMessageEventBroadcastReceiver(final EventSink events) {

@@ -34,3 +34,7 @@ const String isAutoInitEnabled = "isAutoInitEnabled";
 
 const String getAgConnectValues = "getAgConnectValues";
 const String showToast = "showToast";
+
+const String registerClickEvent = "registerClickEvent";
+const String unRegisterClickEvent = "unRegisterClickEvent";
+const String onClickNotification = "onClickNotification";
