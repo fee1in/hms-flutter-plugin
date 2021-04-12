@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,7 +22,7 @@ import 'fusedlocation_screen.dart';
 import 'geofence_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String routeName = "HomeScreen";
+  static const String ROUTE_NAME = "HomeScreen";
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +37,19 @@ class HomeScreen extends StatelessWidget {
             Btn("Fused Location Service", () {
               Navigator.pushNamed(
                 context,
-                FusedLocationScreen.routeName,
+                FusedLocationScreen.ROUTE_NAME,
               );
             }),
             Btn("Activity Identification/Recognition Service", () {
               Navigator.pushNamed(
                 context,
-                ActivityScreen.routeName,
+                ActivityScreen.ROUTE_NAME,
               );
             }),
             Btn("Geofence Service", () {
               Navigator.pushNamed(
                 context,
-                GeofenceScreen.routeName,
+                GeofenceScreen.ROUTE_NAME,
               );
             }),
           ],

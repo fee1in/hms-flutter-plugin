@@ -1,8 +1,9 @@
 name: huawei_push_example
 description: Demonstrates how to use the Huawei Push plugin.
+version: 5.0.2+304
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:

@@ -1,19 +1,19 @@
-# HUAWEI HMS ANALYTICS KIT FLUTTER PLUGIN
+<p align="center">
+  <h1 align="center">Huawei Analytics Flutter Plugin</h1>
+</p>
 
-## Table of Contents
-* [General Info](#general-info)
-* [Use Case](#use-case)
-* [Installation Guide](#installation-guide)
-* [API Reference](#api-reference)
-* [Licensing and Terms](#licensing-and-terms)
 
-## General Info
+<p align="center">
+  <a href="https://pub.dev/packages/huawei_analytics"><img src="https://img.shields.io/pub/v/huawei_analytics?style=for-the-badge" alt="pub.dev version"></a>
+</p>
+
+----
+
 This plugin enables communication between Huawei Analytics SDK and Flutter platform. 
 
 Analytics Kit offers you a range of preset analytics models so you can gain a deeper insight into your users, products, and content. With this insight, you can take a data-driven approach to market your apps and optimize your products.
 
 ##### **With Analytics Kit's on-device data collection SDK, you can:**
-------------
 
 - Track and report on custom events.
 
@@ -23,9 +23,7 @@ Analytics Kit offers you a range of preset analytics models so you can gain a de
 
 - Preset event IDs and parameters.
 
-### Use Case
-
-------------
+##### Use Case
 
 - Analyze user behavior using both predefined and custom events.
 
@@ -33,123 +31,41 @@ Analytics Kit offers you a range of preset analytics models so you can gain a de
 
 - Use dashboards and analytics to measure your marketing activity and identify areas to improve.
 
-## Installation Guide
-1. Download the **Flutter Analytics Plugin**.
-2. Open your **pubspec.yaml** file and add '**huawei_analytics**' library to the dependencies.
+[Learn More](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/introduction-0000001050169136)
 
-        dependencies:
-                 huawei_analytics:
-                   // Replace {library path} with actual library path of Huawei Analytics Kit Flutter Plugin.
-                   path: { library path }
 
-**NOTE**
+## Installation
 
-Replace {library path} with actual library path of Huawei Flutter Analytics Kit Plugin. For more details please refere the [Flutter-Using-Packages](https://flutter.dev/docs/development/packages-and-plugins/using-packages#dependencies-on-unpublished-packages "Flutter-Using-Packages") document.
-3. Run following command to get dependencies.
-```
-flutter pub get
-```
-4. Add maven repository address and AppGallery Connect service dependencies into '**android/build.gradle**' file.
+Please see [pub.dev](https://pub.dev/packages/huawei_analytics/install) and [AppGallery Connect Configuration](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/config-agc-0000001050171095).
 
-```gradle
-buildscript {   
-       repositories {   
-           google()        
-           jcenter()    
-           maven {url 'https://developer.huawei.com/repo/'}   
-            }   
-        }  
-allprojects {      
-       repositories {       
-           google()        
-           jcenter()       
-           maven {url 'https://developer.huawei.com/repo/'}     
-       }    
-}
-```
-5. Open **android\app\src\main\AndroidManifest.xml** file and add following lines.
-```gradle
-<provider
-  android:authorities="${applicationId}.HMSContentProvider"
-  android:name="com.huawei.hms.flutter.analytics.AnalyticsContentProvider"/>
-```
-6. Add agconnect-services.json to **android/app** directory.
-- Sign in to [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html "AppGallery Connect") and select My apps.
-- Find your app from the list, and click the link under Android App in the Mobile phone column.
-- Go to Develop > Overview.
-- In the App information area, Click agconnect-services.json to download the configuration file.
+## Documentation
 
- <img src=".docs/images/download_agconnect_services_json.png" width="500" >
+- [Quick Start](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/initializing-analytics-kit-0000001058525725)
+- [Reference](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-References/overview-0000001050176764)
 
-**NOTE**
-  - Before obtaining the agconnect-services.json file, ensure that HUAWEI Analytics Kit has been enabled. For details about how to enable HUAWEI Analytics Kit, please refer to **Enabling Required Services**.
- -  If you have made any changes in the development module, such as setting the data storage location and enabling or managing APIs, you need to download the latest agconnect-services.json file and replace the existing file in the app directory.
+### Additional Topics
 
-7. Add signature file to android/app directory. If you have not created a signature file yet, please refer to **Generating a Signing Certificate Fingerprint**.
+- [Enabling HUAWEI Analytics Service](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/config-agc-0000001050171095#EN-US_TOPIC_0000001050171095__section118755594146)
+- Setup
+  - [Android Setup](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/android-setup-0000001058644236)
+  - [iOS Setup](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/ios-setup-0000001058804234)
+- Debugging
+  - [Using Debug Mode Android](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/android-setup-0000001058644236#EN-US_TOPIC_0000001058644236__section216115895319)
+  - [Using Debug Mode iOS](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/ios-setup-0000001058804234#EN-US_TOPIC_0000001058804234__section166659381319)
+- [Accessing Analytics Kit](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/initializing-analytics-kit-0000001058525725)
 
-8. Check whether the agconnect-services.json and signature file are successfully added to your project.
 
-<img src=".docs/images/add_signature.png" width="250" >
+## Questions or Issues
 
-9. Add AppGallery Connect plugin to '**android/app/build.gradle**' file.
-          implementation 'com.huawei.agconnect'
+If you have questions about how to use HMS samples, try the following options:
 
-10. Add signing configuration to '**android/app/build.gradle**' file.
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/huawei-mobile-services) is the best place for any programming questions. Be sure to tag your question with **huawei-mobile-services**.
+- [Github](https://github.com/HMS-Core/hms-flutter-plugin) is the official repository for these plugins, You can open an issue or submit your ideas.
+- [Huawei Developer Forum](https://forums.developer.huawei.com/forumPortal/en/home?fid=0101187876626530001) HMS Core Module is great for general questions, or seeking recommendations and opinions.
+- [Huawei Developer Docs](https://developer.huawei.com/consumer/en/doc/overview/HMS-Core-Plugin) is place to official documentation for all HMS Core Kits, you can find detailed documentations in there.
 
-```gradle
-android {
-    /*
-     * <Other configurations>
-     */
+If you run into a bug in our samples, please submit an issue to the Github Repository.
 
-    signingConfigs {
-        config {
-            storeFile file('<keystore_file>.jks')
-            storePassword '<keystore_password>'
-            keyAlias '<key_alias>'
-            keyPassword '<key_password>'
-        }
-    }
+## License
 
-    buildTypes {
-        debug {
-            signingConfig signingConfigs.config
-        }
-        release {
-            signingConfig signingConfigs.config
-        }
-    }
-}
-```
-**NOTE**
-
-To get more information about app signing procedure in Flutter, please refer to [App Signing in Flutter](https://flutter.dev/docs/deployment/android "App Signing in Flutter").
-
-## API Referance
-
-### Methods
-
-| Return Type | Method | Description |
-| :-: | :-: |:-: |
-| Future\<void\>| enableLog() | This API is called to enable the HUAWEI Analytics Kit log function. |
-| Future\<void\>| enableLog(int level) | This API is called to enable debug logs and set the minimum log level (minimum level of log records that will be printed). |
-| Future\<void\>| setUserId(String id) | This API is called to set user IDs. |
-| Future\<void\>| setUserProfile(String name, String value) | This API is called to set user attributes. |
-| Future\<void\>| setPushToken(String token) | This API is called to set the push token, which can be obtained from HUAWEI Push Kit. |
-| Future\<void\>| setMinActivitySessions(long milliseconds) | This API is called to set the minimum interval between two sessions. |
-| Future\<void\>| setSessionDuration(long milliseconds) | This API is called to set the session timeout interval. |
-| Future\<void\>| onEvent(String name, Bundle params) | This API is called to record events.|
-| Future\<void\>| clearCachedData() | This API is called to delete all collected data cached locally, including cached data that failed to be sent. |
-| Future\<String\>| getAAID() | This API is called to obtain the app instance ID from AppGalleryConnect. |
-| Future\<Map<String, String\>>| getUserProfiles(bool preDefined) |This API is called to obtain user attributes. |
-| Future\<void\>| pageStart(String pageName, String pageClassOverride) | This API is called to customize the screen start event. |
-| Future\<void\>| pageEnd(String pageName) | This API is called to customize the screen end event. |
-
-You can read more and get detailed information about the references described above from [developer.huawei.com](https://developer.huawei.com)
-
-## Configuration Description
-
-No.
-
-## Licensing and Terms
-Huawei Analytics Kit Flutter Plugin uses the Apache 2.0 license.
+Huawei Analytics Flutter Plugin is licensed under [Apache 2.0 license](LICENSE)

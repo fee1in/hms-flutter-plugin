@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,20 +26,29 @@ import com.huawei.hms.location.LocationRequest;
 import com.huawei.hms.location.LocationResult;
 import com.huawei.hms.location.LocationSettingsRequest;
 import com.huawei.hms.location.LocationSettingsStates;
+import com.huawei.hms.location.NavigationRequest;
+import com.huawei.hms.location.NavigationResult;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class LocationUtils {
-    public static Map<String, Object> fromLocationToMap(final Location location) {
-        final Map<String, Object> map = new HashMap<>();
-
+public interface LocationUtils {
+    /**
+     * Utility method
+     *
+     * @param location ActivityIdentificationData object
+     * @return HashMap representation of Location object
+     */
+    static Map<String, Object> fromLocationToMap(final Location location) {
         if (location == null) {
-            return map;
+            return Collections.emptyMap();
         }
+
+        final Map<String, Object> map = new HashMap<>();
 
         map.put("provider", location.getProvider());
         map.put("latitude", location.getLatitude());
@@ -65,12 +74,18 @@ public class LocationUtils {
         return map;
     }
 
-    public static Map<String, Object> fromHWLocationToMap(final HWLocation hwLocation) {
-        final Map<String, Object> map = new HashMap<>();
-
+    /**
+     * Utility method
+     *
+     * @param hwLocation HWLocation object
+     * @return HashMap representation of HWLocation object
+     */
+    static Map<String, Object> fromHWLocationToMap(final HWLocation hwLocation) {
         if (hwLocation == null) {
-            return map;
+            return Collections.emptyMap();
         }
+
+        final Map<String, Object> map = new HashMap<>();
 
         map.put("provider", hwLocation.getProvider());
         map.put("latitude", hwLocation.getLatitude());
@@ -99,12 +114,18 @@ public class LocationUtils {
         return map;
     }
 
-    public static Map<String, Object> fromLocationAvailabilityToMap(final LocationAvailability locationAvailability) {
-        final Map<String, Object> map = new HashMap<>();
-
+    /**
+     * Utility method
+     *
+     * @param locationAvailability LocationAvailability object
+     * @return HashMap representation of LocationAvailability object
+     */
+    static Map<String, Object> fromLocationAvailabilityToMap(final LocationAvailability locationAvailability) {
         if (locationAvailability == null) {
-            return map;
+            return Collections.emptyMap();
         }
+
+        final Map<String, Object> map = new HashMap<>();
 
         map.put("cellStatus", locationAvailability.getCellStatus());
         map.put("wifiStatus", locationAvailability.getWifiStatus());
@@ -114,13 +135,18 @@ public class LocationUtils {
         return map;
     }
 
-    public static Map<String, Object> fromLocationResultToMap(final LocationResult locationResult) {
-        final Map<String, Object> map = new HashMap<>();
-
+    /**
+     * Utility method
+     *
+     * @param locationResult LocationResult object
+     * @return HashMap representation of LocationResult object
+     */
+    static Map<String, Object> fromLocationResultToMap(final LocationResult locationResult) {
         if (locationResult == null) {
-            return map;
+            return Collections.emptyMap();
         }
 
+        final Map<String, Object> map = new HashMap<>();
         final List<Map<String, Object>> locationMaps = new ArrayList<>();
         final List<Map<String, Object>> hwLocationMaps = new ArrayList<>();
 
@@ -140,12 +166,18 @@ public class LocationUtils {
         return map;
     }
 
-    public static Map<String, Object> fromLocationSettingsStatesToMap(final LocationSettingsStates states) {
-        final Map<String, Object> map = new HashMap<>();
-
+    /**
+     * Utility method
+     *
+     * @param states LocationSettingsStates object
+     * @return HashMap representation of LocationSettingsStates object
+     */
+    static Map<String, Object> fromLocationSettingsStatesToMap(final LocationSettingsStates states) {
         if (states == null) {
-            return map;
+            return Collections.emptyMap();
         }
+
+        final Map<String, Object> map = new HashMap<>();
 
         map.put("blePresent", states.isBlePresent());
         map.put("bleUsable", states.isBleUsable());
@@ -155,11 +187,40 @@ public class LocationUtils {
         map.put("locationUsable", states.isLocationUsable());
         map.put("networkLocationPresent", states.isNetworkLocationPresent());
         map.put("networkLocationUsable", states.isNetworkLocationUsable());
+        map.put("hmsLocationPresent", states.isHMSLocationPresent());
+        map.put("hmsLocationUsable", states.isHMSLocationUsable());
+        map.put("gnssPresent", states.isGnssPresent());
+        map.put("gnssUsable", states.isGnssUsable());
 
         return map;
     }
 
-    public static LocationRequest fromMapToLocationRequest(final Map map) {
+    /**
+     * Utility method
+     *
+     * @param result NavigationResult object
+     * @return HashMap representation of NavigationResult object
+     */
+    static Map<String, Object> fromNavigationResultToMap(final NavigationResult result) {
+        if (result == null) {
+            return Collections.emptyMap();
+        }
+
+        final Map<String, Object> map = new HashMap<>();
+
+        map.put("state", result.getState());
+        map.put("possibility", result.getPossibility());
+
+        return map;
+    }
+
+    /**
+     * Utility method
+     *
+     * @param map HashMap representation of the LocationRequest object
+     * @return LocationRequest object
+     */
+    static LocationRequest fromMapToLocationRequest(final Map map) {
         final boolean isFastestIntervalExplicitlySet = ValueGetter.getBoolean("isFastestIntervalExplicitlySet", map);
 
         final LocationRequest result = LocationRequest.create();
@@ -193,7 +254,24 @@ public class LocationUtils {
         return result;
     }
 
-    public static Location fromMapToLocation(final Map map) {
+    /**
+     * Utility method
+     *
+     * @param map HashMap representation of the NavigationRequest object
+     * @return NavigationRequest object
+     */
+    static NavigationRequest fromMapToNavigationRequest(final Map<String, Object> map) {
+        final int type = ValueGetter.getInt("type", map);
+        return new NavigationRequest(type);
+    }
+
+    /**
+     * Utility method
+     *
+     * @param map HashMap representation of the Location object
+     * @return Location object
+     */
+    static Location fromMapToLocation(final Map<String, Object> map) {
         final String provider = ValueGetter.getString("provider", map);
         final Location location = new Location(provider);
 
@@ -215,7 +293,13 @@ public class LocationUtils {
         return location;
     }
 
-    public static LocationSettingsRequest fromMapToLocationSettingsRequest(final Map map) {
+    /**
+     * Utility method
+     *
+     * @param map HashMap representation of the LocationSettingsRequest object
+     * @return LocationSettingsRequest object
+     */
+    static LocationSettingsRequest fromMapToLocationSettingsRequest(final Map<String, Object> map) {
         final LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         final List requests = ObjectUtils.cast(map.get("requests"), List.class);
 

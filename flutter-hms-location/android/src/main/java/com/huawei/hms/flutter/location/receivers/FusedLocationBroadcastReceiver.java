@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,25 +21,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 
+import com.huawei.hms.flutter.location.logger.HMSLogger;
 import com.huawei.hms.flutter.location.utils.LocationUtils;
 import com.huawei.hms.location.LocationResult;
 
 import io.flutter.plugin.common.EventChannel.EventSink;
 
 public class FusedLocationBroadcastReceiver extends BroadcastReceiver {
-    private final EventSink mEventSink;
+    private final EventSink eventSink;
 
     public FusedLocationBroadcastReceiver(final EventSink eventSink) {
-        mEventSink = eventSink;
+        this.eventSink = eventSink;
     }
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        if (intent != null) {
-            if (LocationResult.hasResult(intent)) {
-                for (final Location location : LocationResult.extractResult(intent).getLocations()) {
-                    mEventSink.success(LocationUtils.fromLocationToMap(location));
-                }
+        if (LocationResult.hasResult(intent)) {
+            HMSLogger.getInstance(context).sendPeriodicEvent("LocationUpdates");
+            for (final Location location : LocationResult.extractResult(intent).getLocations()) {
+                eventSink.success(LocationUtils.fromLocationToMap(location));
             }
         }
     }

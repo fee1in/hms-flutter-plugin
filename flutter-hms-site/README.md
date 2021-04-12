@@ -1,170 +1,36 @@
-# Huawei Site Kit Flutter Plugin
+<p align="center">
+  <h1 align="center">Huawei Site Flutter Plugin</h1>
+</p>
 
-## Table of Contents
-* [Introduction](#introduction)
-* [Installation Guide](#installation-guide)
-* [API Reference](#api-reference)
-* [Configuration Description](#configuration-description)
-* [Licensing and Terms](#licensing-and-terms)
 
-## Introduction
+<p align="center">
+  <a href="https://pub.dev/packages/huawei_site"><img src="https://img.shields.io/pub/v/huawei_site?style=for-the-badge" alt="pub.dev version"></a>
+</p>
 
-This plugin enables communication between Huawei Site SDK and Flutter platform. With Huawei Site Kit, your app can provide users with convenient and secure access to diverse, place-related services.
+Huawei Site Flutter Plugin provides adaptation code for HUAWEI Site Kit to use the Flutter platform. With HUAWEI Site Kit, your app can provide users with convenient and secure access to diverse, place-related services.
 
-Huawei Site Kit provides the following core capabilities you need to quickly build apps with which your users can explore the world around them:
-- **Place Search**: Returns a place list based on keywords entered by the user.
-- **Nearby Place Search**: Searches for nearby places based on the current location of the user's device.
-- **Place Details**: Searches for details about a place.
-- **Search Suggestion**: Returns a list of place suggestions.
+[Learn More](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/introduction-0000001050181259)
 
-## Installation Guide
+## Installation
 
-- Before you get started, you must register as a HUAWEI developer and complete identity verification on the [HUAWEI Developer](https://developer.huawei.com/consumer/en/) website. For details, please refer to [Register a HUAWEI ID](https://developer.huawei.com/consumer/en/doc/10104).
+Please see [pub.dev](https://pub.dev/packages/huawei_site/install) and [AppGallery Connect Configuration](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/config-agc-0000001050179166).
 
-- Create an app by referring to [Creating an AppGallery Connect Project](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-get-started#h1-1587521853252) and [Adding an App to the Project](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-get-started#h1-1587521946133).
+## Documentation
 
-- A signing certificate fingerprint is used to verify the authenticity of an app when it attempts to access an HMS Core (APK) through the HMS SDK. Before using the HMS Core (APK), you must locally generate a signing certificate fingerprint and configure it in AppGallery Connect.  For details, please refer to [Generating a Signing Certificate](https://developer.huawei.com/consumer/en/codelab/HMSPreparation/index.html#3).
+- [Quick Start](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/overview-0000001056508815)
+- [Reference](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-References/overview-0000001050426045)
 
-- Sign in to [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html) and select **My apps**. Then, on the **Project Setting** page, set **SHA-256 certificate fingerprint** to the SHA-256 fingerprint from [Configuring the Signing Certificate Fingerprint](https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/hms-site-configuringagc#h1-1578534708499).
+## Questions or Issues
 
-- In [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html), on **My apps** page, find your app from the list and click the app name. Go to **Development > Overview > App Information**. Click **agconnect-service.json** to download configuration file. 
+If you have questions about how to use HMS samples, try the following options:
 
-- Copy the **agconnect-service.json** file to the **android/app** directory of your project.
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/huawei-mobile-services) is the best place for any programming questions. Be sure to tag your question with **huawei-mobile-services**.
+- [Github](https://github.com/HMS-Core/hms-flutter-plugin) is the official repository for these plugins, You can open an issue or submit your ideas.
+- [Huawei Developer Forum](https://forums.developer.huawei.com/forumPortal/en/home?fid=0101187876626530001) HMS Core Module is great for general questions, or seeking recommendations and opinions.
+- [Huawei Developer Docs](https://developer.huawei.com/consumer/en/doc/overview/HMS-Core-Plugin) is place to official documentation for all HMS Core Kits, you can find detailed documentations in there.
 
-- Open the **build.gradle** file in the **android** directory of your project.
-    - Go to **buildscript** then configure the Maven repository address and agconnect plugin for the  HMS SDK.
+If you run into a bug in our samples, please submit an issue to the [GitHub repository](https://github.com/HMS-Core/hms-flutter-plugin).
 
-        ```gradle
-        buildscript {
-            repositories {
-                google()
-                jcenter()
-                maven { url 'https://developer.huawei.com/repo/' }
-            }
+## License
 
-            dependencies {
-                /* 
-                 * <Other dependencies>
-                 */
-                classpath 'com.huawei.agconnect:agcp:1.3.1.300'
-            }
-        }
-        ```
-
-    - Go to **allprojects** then configure the Maven repository address for the HMS SDK.
-
-        ```gradle
-        allprojects {
-            repositories {
-                google()
-                jcenter()
-                maven { url 'https://developer.huawei.com/repo/' }
-            }
-        }
-        ```
-
-- Open the **build.gradle** file in the **android/app** directory.
-
-    - Add `apply plugin: 'com.huawei.agconnect'` line after the `apply plugin: 'com.android.application'` line.
-
-        ```gradle
-        apply plugin: 'com.android.application'
-        apply plugin: 'com.huawei.agconnect'
-        apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-        ```
-
-    - Set your package name in **defaultConfig** > **applicationId** and set **minSdkVersion** to **19** or **higher**.
-        Package name must match with the **package_name** entry in **agconnect-services.json** file.
-        ```gradle
-        defaultConfig {
-                applicationId "<package_name>"
-                minSdkVersion 19
-                /*
-                 * <Other configurations>
-                 */
-            }
-        ```
-
-    - Copy the signature file that generated in [Generating a Signing Certificate](https://developer.huawei.com/consumer/en/codelab/HMSPreparation/index.html#3) to **android/app** directory.
-
-    - Configure the signature in **android** according to the signature file information.
-
-        ```gradle
-        android {
-            /*
-             * <Other configurations>
-             */
-
-            signingConfigs {
-                config {
-                    storeFile file('<keystore_file>.jks')
-                    storePassword '<keystore_password>'
-                    keyAlias '<key_alias>'
-                    keyPassword '<key_password>'
-                }
-            }
-
-            buildTypes {
-                debug {
-                    signingConfig signingConfigs.config
-                }
-                release {
-                    signingConfig signingConfigs.config
-                }
-            }
-        }
-        ```
-
-- On your Flutter project directory find and open your **pubspec.yaml** file and add library to dependencies. For more details please refer the [Using packages](https://flutter.dev/docs/development/packages-and-plugins/using-packages#dependencies-on-unpublished-packages) document.
-
-    ```yaml
-    dependencies:
-        huawei_site:
-            # Replace {library path} with actual library path of Huawei Site Kit Flutter Plugin.
-            path: {library path}
-    ```
-
-- Run following command to update package info.
-
-    ```
-    [project_path]> flutter pub get
-    ```
-
-- Run following command to start the app.
-
-    ```
-    [project_path]> flutter run
-    ```
-
-## API Reference
-
-|          Class          |                                   Description                                    |
-|:-----------------------:|:--------------------------------------------------------------------------------:|
-|      AddressDetail      |                        Represents details about a place.                         |
-|       Coordinate        | Represents the location (that is, the latitude and longitude object) of a place. |
-|    CoordinateBounds     |                          Represents coordinate bounds.                           |
-|   DetailSearchRequest   |          Represents a request object used to search for place details.           |
-|  DetailSearchResponse   |     Represents a response object containing the place details search result.     |
-|      SearchService      |                      An entry interface of HUAWEI Site Kit.                      |
-|      LocationType       |                             Enumerates place types.                              |
-|   NearbySearchRequest   |          Represents a request object used to search for nearby places.           |
-|  NearbySearchResponse   |     Represents a response object containing search results of nearby places.     |
-|      OpeningHours       |                    Describes weekly opening hours of a place.                    |
-|         Period          |                               Represents a period.                               |
-|           Poi           |           Represents a POI object containing detailed POI information.           |
-| QuerySuggestionRequest  |         Represents a request object used to provide search suggestions.          |
-| QuerySuggestionResponse |           Represents a response object containing search suggestions.            |
-|          Site           |                    A model class representing a place object.                    |
-|    TextSearchRequest    |        Represents a request object used to search for places by keyword.         |
-|   TextSearchResponse    |      Represents a response object containing keyword-based search results.       |
-|       TimeOfWeek        |                  Represents a time point on a day of the week.                   |
-
-You can read more and get detailed information about the interfaces described above from [developer.huawei.com](https://developer.huawei.com)
-
-## Configuration Description
-
-No.
-
-## Licensing and Terms
-
-Huawei Site Kit Flutter Plugin uses the Apache 2.0 license.
+Huawei Site Flutter Plugin is licensed under [Apache 2.0 license](LICENCE)

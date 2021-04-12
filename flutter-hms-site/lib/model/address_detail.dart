@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,6 +25,8 @@ class AddressDetail {
   String subLocality;
   String thoroughfare;
   String postalCode;
+  String streetNumber;
+  String tertiaryAdminArea;
 
   AddressDetail({
     this.countryCode,
@@ -35,6 +37,8 @@ class AddressDetail {
     this.subLocality,
     this.thoroughfare,
     this.postalCode,
+    this.streetNumber,
+    this.tertiaryAdminArea,
   });
 
   Map<String, dynamic> toMap() {
@@ -47,6 +51,8 @@ class AddressDetail {
       'subLocality': subLocality,
       'thoroughfare': thoroughfare,
       'postalCode': postalCode,
+      'streetNumber': streetNumber,
+      'tertiaryAdminArea': tertiaryAdminArea,
     };
   }
 
@@ -62,6 +68,9 @@ class AddressDetail {
       subLocality: map["subLocality"] == null ? null : map["subLocality"],
       thoroughfare: map["thoroughfare"] == null ? null : map["thoroughfare"],
       postalCode: map["postalCode"] == null ? null : map["postalCode"],
+      streetNumber: map["streetNumber"] == null ? null : map["streetNumber"],
+      tertiaryAdminArea:
+          map["tertiaryAdminArea"] == null ? null : map["tertiaryAdminArea"],
     );
   }
 
@@ -72,7 +81,7 @@ class AddressDetail {
 
   @override
   String toString() {
-    return 'AddressDetail(countryCode: $countryCode, country: $country, adminArea: $adminArea, subAdminArea: $subAdminArea, locality: $locality, subLocality: $subLocality, thoroughfare: $thoroughfare, postalCode: $postalCode)';
+    return 'AddressDetail(countryCode: $countryCode, country: $country, adminArea: $adminArea, subAdminArea: $subAdminArea, locality: $locality, subLocality: $subLocality, thoroughfare: $thoroughfare, postalCode: $postalCode, streetNumber: $streetNumber, tertiaryAdminArea: $tertiaryAdminArea)';
   }
 
   @override
@@ -87,7 +96,9 @@ class AddressDetail {
         o.locality == locality &&
         o.subLocality == subLocality &&
         o.thoroughfare == thoroughfare &&
-        o.postalCode == postalCode;
+        o.postalCode == postalCode &&
+        o.streetNumber == streetNumber &&
+        o.tertiaryAdminArea == tertiaryAdminArea;
   }
 
   @override
@@ -99,6 +110,8 @@ class AddressDetail {
         locality.hashCode ^
         subLocality.hashCode ^
         thoroughfare.hashCode ^
-        postalCode.hashCode;
+        postalCode.hashCode ^
+        streetNumber.hashCode ^
+        tertiaryAdminArea.hashCode;
   }
 }

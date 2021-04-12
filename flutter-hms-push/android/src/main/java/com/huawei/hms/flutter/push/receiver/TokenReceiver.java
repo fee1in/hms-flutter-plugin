@@ -1,11 +1,11 @@
 /*
-Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,7 +20,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.huawei.hms.flutter.push.constants.Code;
 import com.huawei.hms.flutter.push.constants.PushIntent;
+
+import java.util.Objects;
 
 import io.flutter.plugin.common.EventChannel;
 
@@ -33,8 +36,15 @@ public class TokenReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String status = intent.getStringExtra(PushIntent.TOKEN.id());
-        this.events.success(status);
+        if (Objects.requireNonNull(intent.getAction()).equals(PushIntent.TOKEN_INTENT_ACTION.id())) {
+            String err = intent.getStringExtra(PushIntent.TOKEN_ERROR.id());
+            if (err == null) {
+                String res = intent.getStringExtra(PushIntent.TOKEN.id());
+                this.events.success(res);
+            } else {
+                this.events.error(Code.RESULT_ERROR.code(), err, "");
+            }
+        }
     }
 }
 

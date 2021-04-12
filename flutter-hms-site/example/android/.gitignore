@@ -4,3 +4,4 @@
 GeneratedPluginRegistrant.java
 agconnect-services.json
 *.jks
+*.keystore

@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,7 @@
 import 'dart:convert';
 
 import 'coordinate.dart';
+import 'hwlocation_type.dart';
 import 'location_type.dart';
 
 class TextSearchRequest {
@@ -26,9 +27,11 @@ class TextSearchRequest {
   int radius;
   int pageSize;
   LocationType poiType;
+  HwLocationType hwPoiType;
   int pageIndex;
   String countryCode;
   String politicalView;
+  bool children;
 
   TextSearchRequest({
     this.language,
@@ -37,10 +40,12 @@ class TextSearchRequest {
     this.radius,
     this.pageSize,
     this.poiType,
+    this.hwPoiType,
     this.pageIndex,
     this.countryCode,
-    this.politicalView,
-  });
+    @deprecated String politicalView,
+    this.children,
+  }) : politicalView = null;
 
   Map<String, dynamic> toMap() {
     return {
@@ -50,9 +55,11 @@ class TextSearchRequest {
       'radius': radius,
       'pageSize': pageSize,
       'poiType': poiType?.toString(),
+      'hwPoiType': hwPoiType?.toString(),
       'pageIndex': pageIndex,
       'countryCode': countryCode,
-      'politicalView': politicalView,
+      'politicalView': null,
+      'children': children,
     };
   }
 
@@ -66,9 +73,10 @@ class TextSearchRequest {
       radius: map['radius'],
       pageSize: map['pageSize'],
       poiType: LocationType.fromString(map['poiType']),
+      hwPoiType: HwLocationType.fromString(map['hwPoiType']),
       pageIndex: map['pageIndex'],
       countryCode: map['countryCode'],
-      politicalView: map['politicalView'],
+      children: map['children'],
     );
   }
 
@@ -79,7 +87,9 @@ class TextSearchRequest {
 
   @override
   String toString() {
-    return 'TextSearchRequest(language: $language, query: $query, location: $location, radius: $radius, pageSize: $pageSize, poiType: $poiType, pageIndex: $pageIndex, countryCode: $countryCode, politicalView: $politicalView)';
+    return 'TextSearchRequest(language: $language, query: $query, location: '
+        '$location, radius: $radius, pageSize: $pageSize, poiType: $poiType, '
+        'hwPoiType: $hwPoiType, pageIndex: $pageIndex, countryCode: $countryCode, politicalView: $politicalView)';
   }
 
   @override
@@ -93,9 +103,10 @@ class TextSearchRequest {
         o.radius == radius &&
         o.pageSize == pageSize &&
         o.poiType == poiType &&
+        o.hwPoiType == hwPoiType &&
         o.pageIndex == pageIndex &&
         o.countryCode == countryCode &&
-        o.politicalView == politicalView;
+        o.children == children;
   }
 
   @override
@@ -106,8 +117,9 @@ class TextSearchRequest {
         radius.hashCode ^
         pageSize.hashCode ^
         poiType.hashCode ^
+        hwPoiType.hashCode ^
         pageIndex.hashCode ^
         countryCode.hashCode ^
-        politicalView.hashCode;
+        children.hashCode;
   }
 }

@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -59,20 +59,20 @@ public class Banner {
         Log.i(TAG, "Banner view initialized");
     }
 
-    void setStatus(String status) {
-        this.status = status;
-    }
-
     public boolean isCreated() {
         return this.status.equals(AdStatus.CREATED);
     }
 
-    boolean isPreparing() {
-        return this.status.equals(AdStatus.PREPARING);
+    void setStatus(String status) {
+        this.status = status;
     }
 
     boolean isLoading() {
         return this.status.equals(AdStatus.LOADING);
+    }
+
+    boolean isPreparing() {
+        return this.status.equals(AdStatus.PREPARING);
     }
 
     public boolean isLoaded() {

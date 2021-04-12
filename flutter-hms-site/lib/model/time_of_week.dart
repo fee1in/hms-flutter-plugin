@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,18 +17,45 @@
 import 'dart:convert';
 
 class TimeOfWeek {
-  int week;
-  String time;
+  static const int _DAY_MIN = 0;
+  static const int _DAY_MAX = 6;
+  static const int _TIME_MIN = 0;
+  static const int _TIME_MAX = 2359;
+
+  int _day;
+  String _time;
 
   TimeOfWeek({
-    this.week,
-    this.time,
-  });
+    int day,
+    String time,
+  })  : _day = day,
+        _time = time;
+
+  int get day => _day;
+
+  set day(int day) {
+    if (day < _DAY_MIN || day > _DAY_MAX) {
+      throw FormatException("TimeOfWeek day param exceeded the range");
+    }
+    _day = day;
+  }
+
+  String get time => _time;
+
+  set time(String time) {
+    final int intValue = int.parse(time);
+
+    if (intValue < _TIME_MIN || intValue > _TIME_MAX) {
+      throw FormatException("TimeOfWeek time param exceeded the range");
+    }
+
+    _time = time;
+  }
 
   Map<String, dynamic> toMap() {
     return {
-      'week': week,
-      'time': time,
+      'day': _day,
+      'time': _time,
     };
   }
 
@@ -36,7 +63,7 @@ class TimeOfWeek {
     if (map == null) return null;
 
     return TimeOfWeek(
-      week: map["week"] == null ? null : map["week"],
+      day: map["day"] == null ? null : map["day"],
       time: map["time"] == null ? null : map["time"],
     );
   }
@@ -47,15 +74,15 @@ class TimeOfWeek {
       TimeOfWeek.fromMap(json.decode(source));
 
   @override
-  String toString() => 'TimeOfWeek(week: $week, time: $time)';
+  String toString() => 'TimeOfWeek(day: $_day, time: $_time)';
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is TimeOfWeek && o.week == week && o.time == time;
+    return o is TimeOfWeek && o._day == _day && o._time == _time;
   }
 
   @override
-  int get hashCode => week.hashCode ^ time.hashCode;
+  int get hashCode => _day.hashCode ^ _time.hashCode;
 }

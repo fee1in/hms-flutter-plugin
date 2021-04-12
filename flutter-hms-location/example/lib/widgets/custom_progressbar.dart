@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,22 +26,24 @@ class ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Flexible(
-            flex: 4,
-            child: Text(
-              label,
-              style: TextStyle(fontWeight: FontWeight.w700),
-            ),
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Flexible(
+          flex: 4,
+          child: Text(
+            label,
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
-          Flexible(
-              flex: 6,
-              child: LinearProgressIndicator(
-                backgroundColor: Colors.black12,
-                value: value / 100,
-                valueColor: AlwaysStoppedAnimation<Color>(color),
-              ))
-        ]);
+        ),
+        Flexible(
+          flex: 6,
+          child: LinearProgressIndicator(
+            backgroundColor: Colors.black12,
+            value: value / 100,
+            valueColor: AlwaysStoppedAnimation<Color>(color),
+          ),
+        )
+      ],
+    );
   }
 }

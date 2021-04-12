@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,6 +18,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+import 'children_node.dart';
 import 'opening_hours.dart';
 
 class Poi {
@@ -26,8 +27,12 @@ class Poi {
   String phone;
   List<String> photoUrls;
   List<String> poiTypes;
+  List<String> hwPoiTypes;
   double rating;
   String websiteUrl;
+  int priceLevel;
+  String businessStatus;
+  List<ChildrenNode> childrenNodes;
 
   Poi({
     this.internationalPhone,
@@ -35,9 +40,14 @@ class Poi {
     this.phone,
     this.photoUrls,
     this.poiTypes,
-    this.rating,
+    this.hwPoiTypes,
+    double rating,
     this.websiteUrl,
-  });
+    int priceLevel,
+    this.businessStatus,
+    this.childrenNodes,
+  })  : rating = rating ?? 0,
+        priceLevel = priceLevel ?? -1;
 
   Map<String, dynamic> toMap() {
     return {
@@ -46,8 +56,12 @@ class Poi {
       'phone': phone,
       'photoUrls': photoUrls,
       'poiTypes': poiTypes,
+      'hwPoiTypes': hwPoiTypes,
       'rating': rating,
       'websiteUrl': websiteUrl,
+      'priceLevel': priceLevel,
+      'businessStatus': businessStatus,
+      'childrenNodes': childrenNodes,
     };
   }
 
@@ -67,8 +81,18 @@ class Poi {
       poiTypes: map["poiTypes"] == null
           ? null
           : List<String>.from(map["poiTypes"].map((x) => x)),
+      hwPoiTypes: map["hwPoiTypes"] == null
+          ? null
+          : List<String>.from(map["hwPoiTypes"].map((x) => x)),
       rating: map["rating"] == null ? null : map["rating"].toDouble(),
       websiteUrl: map["websiteUrl"] == null ? null : map["websiteUrl"],
+      priceLevel: map["priceLevel"] == null ? null : map["priceLevel"],
+      businessStatus:
+          map["businessStatus"] == null ? null : map["businessStatus"],
+      childrenNodes: map["childrenNodes"] == null
+          ? null
+          : List<ChildrenNode>.from(
+              map["childrenNodes"].map((x) => ChildrenNode.fromMap(x))),
     );
   }
 
@@ -78,7 +102,9 @@ class Poi {
 
   @override
   String toString() {
-    return 'Poi(internationalPhone: $internationalPhone, openingHours: $openingHours, phone: $phone, photoUrls: $photoUrls, poiTypes: $poiTypes, rating: $rating, websiteUrl: $websiteUrl)';
+    return 'Poi(internationalPhone: $internationalPhone, openingHours: '
+        '$openingHours, phone: $phone, photoUrls: $photoUrls, poiTypes: '
+        '$poiTypes, hwPoiTypes: $hwPoiTypes, rating: $rating, websiteUrl: $websiteUrl, priceLevel: $priceLevel, businessStatus: $businessStatus, childrenNodes: $childrenNodes)';
   }
 
   @override
@@ -91,8 +117,12 @@ class Poi {
         o.phone == phone &&
         listEquals(o.photoUrls, photoUrls) &&
         listEquals(o.poiTypes, poiTypes) &&
+        listEquals(o.hwPoiTypes, hwPoiTypes) &&
         o.rating == rating &&
-        o.websiteUrl == websiteUrl;
+        o.websiteUrl == websiteUrl &&
+        o.priceLevel == priceLevel &&
+        o.businessStatus == businessStatus &&
+        listEquals(o.childrenNodes, childrenNodes);
   }
 
   @override
@@ -102,7 +132,11 @@ class Poi {
         phone.hashCode ^
         photoUrls.hashCode ^
         poiTypes.hashCode ^
+        hwPoiTypes.hashCode ^
         rating.hashCode ^
-        websiteUrl.hashCode;
+        websiteUrl.hashCode ^
+        priceLevel.hashCode ^
+        businessStatus.hashCode ^
+        childrenNodes.hashCode;
   }
 }

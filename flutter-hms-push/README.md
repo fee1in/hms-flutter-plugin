@@ -1,56 +1,45 @@
- # ![logo](.docs/logo.png)  Huawei Push Kit Flutter Plugin
+<p align="center">
+  <h1 align="center">Huawei Push Kit Flutter Plugin</h1>
+</p>
 
-## Contents
-1. Introduction
-2. Installation Guide
-3. Function Definitions
-4. Configuration & Description
-5. Licencing & Terms
+----
 
-## 1. Intruduction
+HUAWEI Push Kit is a messaging service provided by Huawei. It establishes a messaging channel from the cloud to devices. By integrating Push Kit, you can send messages to your apps on users' devices in real time. This helps you maintain closer ties with users and increases user awareness and engagement with your apps. 
 
-This module enables communication between HUAWEI Push Kit SDK and Flutter platform. It exposes all functionality provided by HUAWEI Push Kit SDK.
+This plugin enables communication between HUAWEI Push Kit SDK and Flutter platform. It exposes all functionality provided by HUAWEI Push Kit SDK.
 
-## 2. Installation Guide
-To complete this guide , you have to be installed and running flutter on your machine successfully. 
+[> Learn More](https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides-V5/service-introduction-0000001050040060-V5)
 
-- HUAWEI Flutter Push Library comes with ready demo example.
-- Clone the project into your desktop or download the zip file and unzip it.
-- Open the project in Android Studio.
-- Open terminal in Android Studio and run `flutter pub get`
-- Make sure that your device is connected. You can run `flutter doctor` to become sure that everything is okay.
-- Start flutter project in Android Studio.
+## Installation
 
-The plugin library is in the `android/src/main` folder in the root directory. 
-```
-|_HP_HMSCore-Plugin-Flutter_Push-Library
-    |_ android
-        |_src
-    ...
-```
+Please see [pub.dev](https://pub.dev/packages/huawei_push/install) and [AppGallery Connect Configuration](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/config-agc-0000001050178043).
 
+## Documentation
 
-## 3. Function Definitions
-- Usage of every functions are in the `example/lib/main.dart` file.
+- [Quick Start](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/basiccapabilities-0000001050417999)
+- [Reference](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-References/overview-0000001057463088)
 
-|Return Type     |Function                                     |
-|:---------------|:--------------------------------------------|
-|Future<String>  | Push.getId()                                |
-|Future<String>  | Push.getAAID()                              |
-|Future<String>  | Push.getAppId()                             |
-|Future<String>  | Push.getToken()                             |
-|Future<String>  | Push.getCreationTime()                      |
-|Future<String>  | Push.deleteToken()                          |
-|Future<String>  | Push.subscribe()                            |
-|Future<String>  | Push.unsubscribe()                          |
-|Future<String>  | Push.setAutoInitEnabled()                   |
-|Future<String>  | Push.isAutoInitEnabled()                    |
-|Future<String>  | Push.turnOnPush()                           |
-|Future<String>  | Push.turnOffPush()                          |
-|Future<String>  | Push.getAgConnectValues()                   |
+### Additional Topics
+- [Basic Capabilities](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/basiccapabilities-0000001050417999)
+- [Topic-based Message Sending](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/topicbased-message-0000001050190681)
+- [Receiving Data Messages](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/receiving-data-messages-at-killed-state-0000001058199547)
+- [Deep Linking with Custom Intent URIs](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/deeplinking-custom-0000001055875857)
+- [Obtaining Initial Messages](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/get-initial-notif-0000001056552970)
+- [Listening to Message Tap Events](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/listen-notif-message-0000001057481400)
+- [Sending Local Notification Messages](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/send-local-notif-0000001057760996)
+- [Sending Uplink Messages](https://developer.huawei.com/consumer/en/doc/development/HMS-Plugin-Guides/send-uplink-0000001057200983)
 
-## 3. Confuguration & Description
-No.
+## Questions or Issues
 
-## 4. Licencing & Terms
-Apache 2.0 license.
+If you have questions about how to use HMS samples, try the following options:
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/huawei-mobile-services) is the best place for any programming questions. Be sure to tag your question with 
+**huawei-mobile-services**.
+- [Github](https://github.com/HMS-Core/hms-flutter-plugin) is the official repository for these plugins, You can open an issue or submit your ideas.
+- [Huawei Developer Forum](https://forums.developer.huawei.com/forumPortal/en/home?fid=0101187876626530001) HMS Core Module is great for general questions, or seeking recommendations and opinions.
+- [Huawei Developer Docs](https://developer.huawei.com/consumer/en/doc/overview/HMS-Core-Plugin) is place to official documentation for all HMS Core Kits, you can find detailed documentations in there.
+
+If you run into a bug in our samples, please submit an issue to the [GitHub repository](https://github.com/HMS-Core/hms-flutter-plugin).
+
+## License
+
+Huawei React-Native Plugin is licensed under [Apache 2.0 license](LICENCE)

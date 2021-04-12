@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,60 +14,38 @@
     limitations under the License.
 */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:huawei_ml/utils/channels.dart';
 
-class MlPermissionClient {
-  static const MethodChannel _channel = const MethodChannel("permissions");
+enum MLPermission { camera, storage, audio, connectionState }
 
-  // CHECKING PERMISSIONS
+class MLPermissionClient {
+  final MethodChannel _channel = Channels.permissionMethodChannel;
 
-  static Future<bool> checkCameraPermission() async {
-    return await _channel.invokeMethod("checkCameraPermission");
+  Future<bool> requestPermission(List<MLPermission> permissions) {
+    if (permissions == null || permissions.isEmpty) {
+      throw ArgumentError("List of permissions must not be empty");
+    }
+
+    List<String> permissionList = new List();
+    permissions.forEach((element) {
+      permissionList.add(describeEnum(element));
+    });
+
+    return _channel.invokeMethod(
+        "requestPermission", <String, dynamic>{'list': permissionList});
   }
 
-  static Future<bool> checkInternetPermission() async {
-    return await _channel.invokeMethod("checkInternetPermission");
+  Future<bool> hasCameraPermission() {
+    return _channel.invokeMethod("hasCameraPermission");
   }
 
-  static Future<bool> checkWriteExternalStoragePermission() async {
-    return await _channel.invokeMethod("checkWriteExternalStoragePermission");
+  Future<bool> hasRecordAudioPermission() {
+    return _channel.invokeMethod("hasRecordAudioPermission");
   }
 
-  static Future<bool> checkReadExternalStoragePermission() async {
-    return await _channel.invokeMethod("checkReadExternalStoragePermission");
-  }
-
-  static Future<bool> checkRecordAudioPermission() async {
-    return await _channel.invokeMethod("checkAudioPermission");
-  }
-
-  static Future<bool> checkAccessNetworkStatePermission() async {
-    return await _channel.invokeMethod("checkAccessNetworkStatePermission");
-  }
-
-  static Future<bool> checkAccessWifiStatePermission() async {
-    return await _channel.invokeMethod("checkAccessWifiStatePermission");
-  }
-
-  // REQUESTING PERMISSIONS
-
-  static Future requestCameraPermission() async {
-    await _channel.invokeMethod("requestCameraPermission");
-  }
-
-  static Future requestInternetPermission() async {
-    await _channel.invokeMethod("requestInternetPermission");
-  }
-
-  static Future requestStoragePermission() async {
-    await _channel.invokeMethod("requestStoragePermission");
-  }
-
-  static Future requestRecordAudioPermission() async {
-    await _channel.invokeMethod("requestAudioPermission");
-  }
-
-  static Future requestConnectionStatePermission() async {
-    await _channel.invokeMethod("requestConnectionStatePermission");
+  Future<bool> hasStoragePermission() {
+    return _channel.invokeMethod("hasStoragePermission");
   }
 }

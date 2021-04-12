@@ -1,11 +1,11 @@
 /*
-Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,12 +23,13 @@ import android.content.IntentFilter;
 import com.huawei.hms.flutter.push.constants.PushIntent;
 import com.huawei.hms.flutter.push.receiver.TokenReceiver;
 
-import io.flutter.plugin.common.EventChannel.StreamHandler;
 import io.flutter.plugin.common.EventChannel.EventSink;
+import io.flutter.plugin.common.EventChannel.StreamHandler;
 
 public class TokenStreamHandler implements StreamHandler {
 
     private Context context;
+    private BroadcastReceiver tokenEventBroadcastReceiver;
 
     public TokenStreamHandler(Context context) {
         this.context = context;
@@ -36,16 +37,14 @@ public class TokenStreamHandler implements StreamHandler {
 
     @Override
     public void onListen(Object arguments, EventSink events) {
-        BroadcastReceiver tokenEventBroadcastReceiver = createTokenEventBroadcastReceiver(events);
-        context.registerReceiver(
-                tokenEventBroadcastReceiver,
-                new IntentFilter(PushIntent.TOKEN_INTENT_ACTION.id())
-        );
+        tokenEventBroadcastReceiver = createTokenEventBroadcastReceiver(events);
+        context.registerReceiver(tokenEventBroadcastReceiver,
+                new IntentFilter(PushIntent.TOKEN_INTENT_ACTION.id()));
     }
 
     @Override
     public void onCancel(Object arguments) {
-
+        context.unregisterReceiver(tokenEventBroadcastReceiver);
     }
 
     private BroadcastReceiver createTokenEventBroadcastReceiver(final EventSink events) {

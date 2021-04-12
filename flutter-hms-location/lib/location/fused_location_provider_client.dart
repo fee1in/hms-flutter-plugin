@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,8 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 */
-
-import 'dart:async' show Future;
 
 import 'package:flutter/services.dart';
 
@@ -26,6 +24,8 @@ import 'location_request.dart';
 import 'location_result.dart';
 import 'location_settings_request.dart';
 import 'location_settings_states.dart';
+import 'navigation_request.dart';
+import 'navigation_result.dart';
 
 class FusedLocationProviderClient {
   static FusedLocationProviderClient _instance;
@@ -122,7 +122,9 @@ class FusedLocationProviderClient {
   Future<int> requestLocationUpdatesExCb(LocationRequest locationRequest,
       LocationCallback locationCallback) async {
     int callbackId = await _methodChannel.invokeMethod<int>(
-        'requestLocationUpdatesExCb', locationRequest.toMap());
+        'requestLocationUpdatesExCb',
+        (locationRequest..priority = LocationRequest.PRIORITY_HD_ACCURACY)
+            .toMap());
     _callbacks.putIfAbsent(callbackId, () => locationCallback);
     return callbackId;
   }
@@ -136,6 +138,13 @@ class FusedLocationProviderClient {
     await _methodChannel.invokeMethod<void>(
         'removeLocationUpdatesCb', callbackId);
     _callbacks.remove(callbackId);
+  }
+
+  Future<NavigationResult> getNavigationContextState(
+      NavigationRequest navigationRequest) async {
+    return NavigationResult.fromMap(
+        await _methodChannel.invokeMapMethod<String, dynamic>(
+            'getNavigationContextState', navigationRequest.toMap()));
   }
 
   Stream<Location> get onLocationData {

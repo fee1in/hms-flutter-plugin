@@ -1,11 +1,11 @@
 /*
-    Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+    Copyright 2020-2021. Huawei Technologies Co., Ltd. All rights reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the "License")
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,19 +16,9 @@
 
 package com.huawei.hms.flutter.location.constants;
 
-public enum Action {
-    PROCESS_LOCATION("com.huawei.hms.flutter.location.ACTION_PROCESS_LOCATION"),
-    PROCESS_GEOFENCE("com.huawei.hms.flutter.location.ACTION_PROCESS_GEOFENCE"),
-    PROCESS_CONVERSION("com.huawei.hms.flutter.location.ACTION_PROCESS_CONVERSION"),
-    PROCESS_IDENTIFICATION("com.huawei.hms.flutter.location.ACTION_PROCESS_IDENTIFICATION");
-
-    private final String id;
-
-    Action(final String id) {
-        this.id = id;
-    }
-
-    public String id() {
-        return id;
-    }
+public interface Action {
+    String PROCESS_LOCATION = "com.huawei.hms.flutter.location.ACTION_PROCESS_LOCATION";
+    String PROCESS_GEOFENCE = "com.huawei.hms.flutter.location.ACTION_PROCESS_GEOFENCE";
+    String PROCESS_CONVERSION = "com.huawei.hms.flutter.location.ACTION_PROCESS_CONVERSION";
+    String PROCESS_IDENTIFICATION = "com.huawei.hms.flutter.location.ACTION_PROCESS_IDENTIFICATION";
 }
