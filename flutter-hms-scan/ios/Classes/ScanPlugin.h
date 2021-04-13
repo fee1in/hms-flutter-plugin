@@ -1,4 +1,4 @@
 #import <Flutter/Flutter.h>
 
-@interface ScanPlugin : NSObject<FlutterPlugin>
+@interface ScanPlugin : NSObject <FlutterPlugin>
 @end

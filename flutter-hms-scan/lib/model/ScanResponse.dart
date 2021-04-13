@@ -31,26 +31,26 @@ import 'ContactDetail.dart';
 import 'EventInfo.dart';
 
 class ScanResponse {
-  ScanResponse({
-    this.hmsScanVersion,
-    this.cornerPoints,
-    this.originValueByte,
-    this.originalValue,
-    this.scanType,
-    this.scanTypeForm,
-    this.showResult,
-    this.zoomValue,
-    this.originalBitmap,
-    this.smsContent,
-    this.emailContent,
-    this.telPhoneNumber,
-    this.linkUrl,
-    this.wifiConnectionInfo,
-    this.locationCoordinate,
-    this.driverInfo,
-    this.contactDetail,
-    this.eventInfo,
-  });
+  ScanResponse(
+      {this.hmsScanVersion,
+      this.cornerPoints,
+      this.originValueByte,
+      this.originalValue,
+      this.scanType,
+      this.scanTypeForm,
+      this.showResult,
+      this.zoomValue,
+      this.originalBitmap,
+      this.smsContent,
+      this.emailContent,
+      this.telPhoneNumber,
+      this.linkUrl,
+      this.wifiConnectionInfo,
+      this.locationCoordinate,
+      this.driverInfo,
+      this.contactDetail,
+      this.eventInfo,
+      this.text});
 
   int hmsScanVersion;
   List<CornerPoint> cornerPoints;
@@ -72,6 +72,7 @@ class ScanResponse {
   ContactDetail contactDetail;
   EventInfo eventInfo;
   HmsBorderRect borderRect;
+  String text;
 
   factory ScanResponse.fromJson(String str) =>
       ScanResponse.fromMap(json.decode(str));
@@ -130,8 +131,12 @@ class ScanResponse {
           : EventInfo.fromMap(Map<String, dynamic>.from(json["eventInfo"])),
       originalBitmap:
           json["originalBitmap"] == null ? null : json["originalBitmap"],
+      text: json["text"] == null ? null : json["text"],
     );
-    response.borderRect = HmsBorderRect(response.cornerPoints);
+    if (response.cornerPoints != null) {
+      response.borderRect = HmsBorderRect(response.cornerPoints);
+    }
+
     return response;
   }
 
@@ -163,6 +168,7 @@ class ScanResponse {
         "contactDetail": contactDetail == null ? null : contactDetail.toMap(),
         "eventInfo": eventInfo == null ? null : eventInfo.toMap(),
         "originalBitmap": originalBitmap,
+        "text": text,
       };
 
   @override
@@ -189,29 +195,30 @@ class ScanResponse {
         check.contactDetail == contactDetail &&
         check.eventInfo == eventInfo &&
         check.borderRect == borderRect &&
+        check.text == text &&
         check.originalBitmap == originalBitmap;
   }
 
   @override
   int get hashCode => hashValues(
-        hmsScanVersion,
-        cornerPoints,
-        originValueByte,
-        originalValue,
-        scanType,
-        scanTypeForm,
-        showResult,
-        zoomValue,
-        smsContent,
-        emailContent,
-        telPhoneNumber,
-        linkUrl,
-        wifiConnectionInfo,
-        locationCoordinate,
-        driverInfo,
-        contactDetail,
-        eventInfo,
-        borderRect,
-        originalBitmap,
-      );
+      hmsScanVersion,
+      cornerPoints,
+      originValueByte,
+      originalValue,
+      scanType,
+      scanTypeForm,
+      showResult,
+      zoomValue,
+      smsContent,
+      emailContent,
+      telPhoneNumber,
+      linkUrl,
+      wifiConnectionInfo,
+      locationCoordinate,
+      driverInfo,
+      contactDetail,
+      eventInfo,
+      borderRect,
+      originalBitmap,
+      text);
 }

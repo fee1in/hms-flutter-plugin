@@ -23,13 +23,23 @@ class HmsCustomizedView {
   static CustomizedViewRequest customizedViewRequest;
 
   static Future<dynamic> customizedMethodCallHandler(MethodCall call) async {
-    if (call.method == "CustomizedViewResponse") {
-      ScanResponse response = ScanResponse.fromMap(Map<String, dynamic>.from(
-        call.arguments,
-      ));
-      HmsCustomizedView.customizedViewRequest
-          .customizedCameraListener(response);
-    }
+    try {
+      if (call.method == "CustomizedViewResponse") {
+        if (call.arguments == null) {
+          // HmsCustomizedView.customizedViewRequest
+          //     .customizedCameraListener(null);
+          return;
+        }
+
+        ScanResponse response = ScanResponse.fromMap(Map<String, dynamic>.from(
+          call.arguments,
+        ));
+        HmsCustomizedView.customizedViewRequest
+            .customizedCameraListener(response);
+      }
+    } catch (e) {
+      // HmsCustomizedView.customizedViewRequest.customizedCameraListener(null);
+    } finally {}
   }
 
   static Future<dynamic> listenCustomizedLifecycle(MethodCall call) async {

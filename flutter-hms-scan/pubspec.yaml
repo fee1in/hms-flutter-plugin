@@ -22,4 +22,6 @@ flutter:
       android:
         package: com.huawei.hms.flutter.scan
         pluginClass: ScanPlugin
+      ios:
+        pluginClass: ScanPlugin
 
